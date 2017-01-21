@@ -16,6 +16,8 @@ public:
 	static PatientList* GetInstance();
 
 	void ShowPatientList();
+	void ShowPatientListByWard(int wardId);
+	void ShowPatientListByDate(string date);
 	void AddPatient(Patient *patient);
 	void AddExamplePatients();
 	void DeletePatient(Patient *patient);

@@ -21,6 +21,7 @@ public:
 	void SetWardId(int wardId);
 
 	string getAdmissionDate();
+	int GetWardId();
 
 private:
 	int doctorId;

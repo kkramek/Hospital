@@ -3,6 +3,7 @@
 #include "DoctorList.h"
 #include "WardList.h"
 #include "DrugList.h"
+#include "TreatmentList.h"
 
 class Menu
 {

@@ -53,8 +53,10 @@ void Menu::ShowMenu()
 			PatientList::GetInstance()->ShowPatientList();
 			break;
 		case 2:
+			this->ShowPatientListByWard();
 			break;
 		case 3:
+			this->ShowPatientListByDate();
 			break;
 		case 4:
 			this->AddPatient();
@@ -78,12 +80,14 @@ void Menu::ShowMenu()
 			DrugList::GetInstance()->ShowDrugList();
 			break;
 		case 11:
+			TreatmentList::GetInstance()->ShowTreatmentList();
 			break;
 		case 12:
 			PatientList::GetInstance()->AddExamplePatients();
 			DoctorList::GetInstance()->AddExampleDoctors();
 			WardList::GetInstance()->AddExampleWards();
 			DrugList::GetInstance()->AddExampleDrug();
+			TreatmentList::GetInstance()->AddExampleTreatment();
 			break;
 		default:
 			cout << "[ERROR] Niepoprawny wybor!";
@@ -91,6 +95,39 @@ void Menu::ShowMenu()
 		}
 
 	} while (true == true);
+}
+
+void Menu::ShowPatientListByWard()
+{
+	int wardId;
+	bool wardExist;
+
+	WardList::GetInstance()->ShowWardList();
+
+	cout << endl << "***************Wyswietl pacjentow na oddziale***************" << endl;
+
+	cout << "Podaj id oddzialu: ";
+	cin >> wardId;
+
+	wardExist = WardList::GetInstance()->WardExists(wardId);
+
+	if (wardExist) {
+		PatientList::GetInstance()->ShowPatientListByWard(wardId);
+	}
+	else {
+		cout << "[ERROR]  Oddzial o podanym id nie istnieje!";
+	}
+}
+
+void Menu::ShowPatientListByDate()
+{
+	string data;
+
+	cout << endl << "***************Wyswietl przyjetych w dniu***************" << endl;
+	cout << "Podaj date (dd.mm.RRRR): ";
+	cin >> data;
+
+	PatientList::GetInstance()->ShowPatientListByDate(data);
 }
 
 void Menu::AddPatient()
@@ -216,7 +253,6 @@ void Menu::DeletePatient()
 
 Patient* Menu::SearchPatient()
 {
-	int id;
 	string firstName;
 	string lastName;
 	Patient *searchedPatient;

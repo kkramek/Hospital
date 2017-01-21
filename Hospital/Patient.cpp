@@ -21,6 +21,12 @@ string Patient::getAdmissionDate()
 	return this->admissionDate;
 }
 
+int Patient::GetWardId()
+{
+	return this->wardId;
+}
+
+
 void Patient::ShowPatient()
 {
 	cout << endl << "***************Pacjent***************" << endl;

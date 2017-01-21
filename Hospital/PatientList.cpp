@@ -41,6 +41,38 @@ void PatientList::ShowPatientList()
 	cout << "*********************************************" << endl << endl;
 };
 
+void PatientList::ShowPatientListByWard(int wardId)
+{
+	vector < Patient* >::iterator iter, end;
+
+	cout << endl << "***************Lista pacjentow***************" << endl;
+
+	for (iter = this->patientList.begin(), end = this->patientList.end(); iter != end; ++iter) {
+
+		if ((*iter)->GetWardId() == wardId) {
+			cout << (*iter)->getFirstName() << " " << (*iter)->getLastName() << " " << (*iter)->getAdmissionDate() << endl;
+		}
+	}
+
+	cout << "*********************************************" << endl << endl;
+};
+
+void PatientList::ShowPatientListByDate(string date)
+{
+	vector < Patient* >::iterator iter, end;
+
+	cout << endl << "***************Lista pacjentow***************" << endl;
+
+	for (iter = this->patientList.begin(), end = this->patientList.end(); iter != end; ++iter) {
+
+		if (!date.compare((*iter)->getAdmissionDate())) {
+			cout << (*iter)->getFirstName() << " " << (*iter)->getLastName() << " " << (*iter)->getAdmissionDate() << endl;
+		}
+	}
+
+	cout << "*********************************************" << endl << endl;
+};
+
 int PatientList::GetNewId()
 {
 	return this->patientList.size();
@@ -105,14 +137,14 @@ void PatientList::AddExamplePatients()
 {
 
 	Patient *patient1 = new Patient(1, "Jan", "Kowalski", 1, 1, "20.01.2017");
-	Patient *patient2 = new Patient(2, "Pawel", "Nowak", 2, 1, "01.01.2017");
-	Patient *patient3 = new Patient(3, "Adam", "Drygala", 3, 1, "04.01.2017");
+	Patient *patient2 = new Patient(2, "Pawel", "Nowak", 2, 2, "01.01.2017");
+	Patient *patient3 = new Patient(3, "Adam", "Drygala", 3, 3, "04.01.2017");
 	Patient *patient4 = new Patient(4, "Mateusz", "Wosz", 1, 1, "07.01.2017");
-	Patient *patient5 = new Patient(5, "Marcin", "Mikolaszek", 2, 1, "09.01.2017");
-	Patient *patient6 = new Patient(6, "Michal", "Hasa", 3, 1, "12.01.2017");
+	Patient *patient5 = new Patient(5, "Marcin", "Mikolaszek", 2, 2, "09.01.2017");
+	Patient *patient6 = new Patient(6, "Michal", "Hasa", 3, 3, "12.01.2017");
 	Patient *patient7 = new Patient(7, "Radoslaw", "Kopek", 1, 1, "15.01.2017");
-	Patient *patient8 = new Patient(8, "Przemyslaw", "Mlonka", 2, 1, "16.01.2017");
-	Patient *patient9 = new Patient(9, "Antoni", "Kaczmarczyk", 3, 1, "17.01.2017");
+	Patient *patient8 = new Patient(8, "Przemyslaw", "Mlonka", 2, 2, "16.01.2017");
+	Patient *patient9 = new Patient(9, "Antoni", "Kaczmarczyk", 3, 3, "17.01.2017");
 	Patient *patient10 = new Patient(10, "Lukasz", "Kolodzej", 1, 1, "20.01.2017");
 
 	this->patientList.push_back(patient1);
