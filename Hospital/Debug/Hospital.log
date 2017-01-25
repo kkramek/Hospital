@@ -1,11 +1,5 @@
-﻿Build started 21-Jan-17 2:19:15.
-     1>Project "C:\Users\KKramek\Desktop\Hospital\Hospital\Hospital.vcxproj" on node 2 (Build target(s)).
-     1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Hospital.pch" /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt Menu.cpp
-         Menu.cpp
-     1>c:\users\kkramek\desktop\hospital\hospital\menu.cpp(1): fatal error C1041: cannot open program database 'c:\users\kkramek\desktop\hospital\hospital\debug\vc120.idb'; if multiple CL.EXE write to the same .PDB file, please use /FS
-     1>Done Building Project "C:\Users\KKramek\Desktop\Hospital\Hospital\Hospital.vcxproj" (Build target(s)) -- FAILED.
+﻿Build started 25-Jan-17 10:09:54.
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:00.55
+Time Elapsed 00:00:00.07

@@ -48,3 +48,47 @@ void Patient::SetWardId(int wardId)
 {
 	this->wardId = wardId;
 }
+
+bool Patient::AddDrug(int drugId)
+{
+	Service* drug;
+
+	drug = DrugList::GetInstance()->GetDrug(drugId);
+
+	if (drug != nullptr) {
+		this->drugList.push_back(drug);
+		return true;
+	} 
+
+	return false;
+}
+
+bool Patient::AddTreatment(int treatmentId)
+{
+	Service* treatment;
+
+	treatment = TreatmentList::GetInstance()->GetTreatment(treatmentId);
+
+	if (treatment != nullptr) {
+		this->treatmentList.push_back(treatment);
+		return true;
+	}
+
+	return false;
+}
+
+double Patient::GetDue()
+{
+	double due = 0;
+	vector < Service* >::iterator iter, end;
+
+	for (iter = this->drugList.begin(), end = this->drugList.end(); iter != end; ++iter) {
+		due += (*iter)->GetPrice();
+	}
+
+	for (iter = this->treatmentList.begin(), end = this->treatmentList.end(); iter != end; ++iter) {
+		due += (*iter)->GetPrice();
+	}
+
+	return due;
+}

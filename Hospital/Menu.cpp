@@ -29,15 +29,16 @@ void Menu::ShowMenu()
 
 		cout << "4.Dodaj Pacjenta" << endl;
 		cout << "5.Szukaj Pacjenta" << endl;
-		cout << "6.Edytuj Pacjenta" << endl;
-		cout << "7.Usun Pacjenta" << endl;
+		cout << "6.Podlicz Pacjenta" << endl;
+		cout << "7.Edytuj Pacjenta" << endl;
+		cout << "8.Usun Pacjenta" << endl;
 
-		cout << "8.Wyswietl lekarzy" << endl;
-		cout << "9.Wyswietl oddzialy" << endl;
-		cout << "10.Wyswietl leki" << endl;
-		cout << "11.Wyswietl zabiegi" << endl;
+		cout << "9.Wyswietl lekarzy" << endl;
+		cout << "10.Wyswietl oddzialy" << endl;
+		cout << "11.Wyswietl leki" << endl;
+		cout << "12.Wyswietl zabiegi" << endl;
 
-		cout << "12.Dodaj przykladowe dane" << endl;
+		cout << "13.Dodaj przykladowe dane" << endl;
 
 		cout << "**********************************" << endl;
 
@@ -65,24 +66,27 @@ void Menu::ShowMenu()
 			this->SearchPatient();
 			break;
 		case 6:
-			this->EditPatient();
+			this->ShowPatientDue();
 			break;
 		case 7:
-			this->DeletePatient();
+			this->EditPatientMenu();
 			break;
 		case 8:
-			DoctorList::GetInstance()->ShowDoctorList();
+			this->DeletePatient();
 			break;
 		case 9:
-			WardList::GetInstance()->ShowWardList();
+			DoctorList::GetInstance()->ShowDoctorList();
 			break;
 		case 10:
-			DrugList::GetInstance()->ShowDrugList();
+			WardList::GetInstance()->ShowWardList();
 			break;
 		case 11:
-			TreatmentList::GetInstance()->ShowTreatmentList();
+			DrugList::GetInstance()->ShowDrugList();
 			break;
 		case 12:
+			TreatmentList::GetInstance()->ShowTreatmentList();
+			break;
+		case 13:
 			PatientList::GetInstance()->AddExamplePatients();
 			DoctorList::GetInstance()->AddExampleDoctors();
 			WardList::GetInstance()->AddExampleWards();
@@ -182,20 +186,112 @@ void Menu::AddPatient()
 
 }
 
-void Menu::EditPatient()
+void Menu::ShowPatientDue()
 {
+
+	int choice;
 	Patient *foundPatient;
-	string firstName;
-	string lastName;
-	string admissionDate;
-	int doctorId;
-	int wardId;
-	bool doctorExist;
-	bool wardExist;
 
 	foundPatient = this->SearchPatient();
 
-	cout << endl << "***************Edytowanie pacjenta***************" << endl;
+	if (foundPatient != nullptr) {
+		cout << endl << "***************NALEZNOSC PACJENTA***************" << endl;
+		cout << "Pacjent powienien zaplacic: " << foundPatient->GetDue() << endl << endl;
+	}
+}
+
+void Menu::EditPatientMenu()
+{
+	int choice;
+	Patient *foundPatient;
+
+	foundPatient = this->SearchPatient();
+
+	if (foundPatient != nullptr) {
+		
+		cout << endl << "***************EDYCJA PACJENTA***************" << endl;
+		cout << "1.Edytuj Dane pacjenta." << endl;
+		cout << "2.Dodaj lek." << endl;
+		cout << "3.Dodaj zabieg." << endl;
+
+		cout << "Wybierz: ";
+		if (!(cin >> choice)) {
+			cerr << "[ERROR] Bledny wybor!";
+			exit(0);
+		}
+
+		switch (choice) {
+
+		case 1:
+			this->EditPatient(foundPatient);
+			break;
+		case 2:
+			this->EditPatientAdDrug(foundPatient);
+			break;
+		case 3:
+			this->EditPatientAdTreatment(foundPatient);
+			cout << "[ERROR] Niepoprawny wybor!";
+		default:
+			cout << "[ERROR] Niepoprawny wybor!";
+			break;
+		}
+	}
+
+}
+
+void Menu::EditPatientAdDrug(Patient *foundPatient)
+{
+	int drugId;
+	bool result;
+
+	DrugList::GetInstance()->ShowDrugList();
+
+	cout << "Dodaj lek o id: ";
+	cin >> drugId;
+
+	result = foundPatient->AddDrug(drugId);
+
+	if (result) {
+		cout << "[INFO] Dodano lek" << endl;
+	}
+	else {
+		cout << "[ERROR] Dodawanie lek nie powiodlo sie" << endl;
+	}
+}
+
+void Menu::EditPatientAdTreatment(Patient *foundPatient)
+{
+	int treatmentId;
+	bool result;
+
+	TreatmentList::GetInstance()->ShowTreatmentList();
+
+	cout << "Dodaj zabieg o id: ";
+	cin >> treatmentId;
+
+	result = foundPatient->AddTreatment(treatmentId);
+
+	if (result) {
+		cout << "[INFO] Dodano zabieg" << endl;
+	}
+	else {
+		cout << "[ERROR] Dodawanie zabiegu nie powiodlo sie" << endl;
+	}
+}
+
+void Menu::EditPatient(Patient *foundPatient)
+{
+	int wardId;
+	int doctorId;
+	bool doctorExist;
+	bool wardExist;
+	string firstName;
+	string lastName;
+	string admissionDate;
+
+	cout << endl << "***************Edytowanie danych***************" << endl;
+
+
 	cout << "Imie: ";
 	cin >> firstName;
 	cout << "Nazwisko: ";
@@ -232,19 +328,24 @@ void Menu::EditPatient()
 	else if (wardId != 0) {
 		cout << "[ERROR]  Wprowadzono bledne id oddzialu!" << endl;
 	}
+
+	
+
 }
+
+
 
 void Menu::DeletePatient()
 {
-	Patient *foundPatient;
 	PatientList *patientList;
+	Patient *foundPatient;
 
 	foundPatient = this->SearchPatient();
 
 	if (foundPatient != nullptr) {
 		patientList = PatientList::GetInstance();
 		patientList->DeletePatient(foundPatient);
-		cout << "Pacjent zostal usuniety";
+		cout << "[INFO] Pacjent zostal usuniety";
 	}
 	else{
 		cout << "[ERROR]  Nie udalo sie usunac pacjenta!" << endl;

@@ -16,6 +16,7 @@ public:
 	void AddExampleDrug();
 	void ShowDrugList();
 	bool DrugExists(int id);
+	Service* GetDrug(int id);
 
 private:
 	static DrugList *instance;

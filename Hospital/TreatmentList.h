@@ -15,6 +15,7 @@ public:
 	void AddExampleTreatment();
 	void ShowTreatmentList();
 	bool TreatmentExists(int id);
+	Service* GetTreatment(int id);
 
 private:
 	static TreatmentList *instance;

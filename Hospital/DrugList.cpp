@@ -80,3 +80,17 @@ bool DrugList::DrugExists(int id)
 
 	return false;
 };
+
+Service* DrugList::GetDrug(int id)
+{
+	vector < Service* >::iterator iter, end;
+
+	for (iter = this->drugList.begin(), end = this->drugList.end(); iter != end; ++iter) {
+
+		if ((*iter)->GetId() == id) {
+			return (*iter);
+		}
+	}
+
+	return nullptr;
+};

@@ -84,3 +84,17 @@ bool TreatmentList::TreatmentExists(int id)
 
 	return false;
 };
+
+Service* TreatmentList::GetTreatment(int id)
+{
+	vector < Service* >::iterator iter, end;
+
+	for (iter = this->treatmentList.begin(), end = this->treatmentList.end(); iter != end; ++iter) {
+
+		if ((*iter)->GetId() == id) {
+			return (*iter);
+		}
+	}
+
+	return nullptr;
+};
